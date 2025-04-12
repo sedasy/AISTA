@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AISTA</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      position: relative;
+      font-family: 'Averta PE', serif;
+    }
+    .left-section {
+      width: 65%;
+      background-color: #262F59;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: relative;
+      padding: 40px;
+      overflow: hidden;
+    }
+    .left-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('e96e5486-dc0a-4908-bb29-dea7143c6323.png');
+      background-repeat: repeat;
+      background-size: 50px 50px;
+      opacity: 0.2;
+      z-index: 0;
+    }
+    .header-container, .content-section {
+      position: relative;
+      z-index: 1;
+    }
+    .header-container {
+      position: absolute;
+      top: 30px;
+      left: 40px;
+      display: flex;
+      align-items: center;
+    }
+    .header-container h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+    .rectangle {
+      width: 8px;
+      height: 3rem;
+      background-color: #F9BF3B;
+      margin: 0 15px;
+    }
+    .header-description {
+      font-size: 1rem;
+      color: white;
+    }
+    .content-section {
+      margin-top: 300px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .content-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+    .content-section p {
+      text-align: left;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .right-section {
+      width: 35%;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 1px;
+      font-size: 2rem;
+      position: relative;
+    }
+    .right-section-logo img {
+      width: 400px;
+      height: auto;
+    }
+    .email-form {
+      margin-top: 30px;
+      width: 80%;
+      max-width: 400px;
+    }
+    .form-group {
+      display: block;
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      font-size: 1rem;
+      color: #262F59;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .email-form .forgot-link {
+      text-align: left; /* Metni sola hizaladık */
+      margin: 10px 0 20px;
+      padding-left: 5px; /* Sola biraz kaydırma yapıldı */
+    }
+    .email-form .forgot-link a {
+      font-size: 0.9rem;
+      color: #262F59;
+      text-decoration: none;
+    }
+    .email-form .forgot-link a:hover {
+      text-decoration: underline;
+    }
+    .email-form button {
+      width: 100%;
+      padding: 10px 20px;
+      background-color: #F9BF3B;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .left-section, .right-section {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+      }
+      .header-container {
+        position: static;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .header-description {
+        display: none;
+      }
+      .content-section {
+        margin-top: 60px;
+      }
+      .right-section-logo img {
+        width: 80%;
+        max-width: 250px;
+      }
+      .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .form-group label {
+        margin-bottom: 5px;
+      }
+      .email-form button {
+        margin-top: 10px;
+      }
+      .email-form .forgot-link {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="left-section">
+    <div class="header-container">
+      <h1>AISTA</h1>
+      <div class="rectangle"></div>
+      <div class="header-description">Arıza İstek Şikayet Talep Arayüzü</div>
+    </div>
+    <div class="content-section">
+      <h2>AISTA'a Hoşgeldiniz</h2>
+      <p>
+        Üniversitemiz bünyesinde kurulmuş olan AISTA'a gönderilen öneri ve şikâyetleriniz,
+        gizliliğin korunması amacıyla tek bir merkezde toplanarak Rektörlüğümüz bünyesinde değerlendirilmektedir.
+      </p>
+    </div>
+  </div>
+  <div class="right-section">
+    <div class="right-section-logo">
+      <img src="YATAY LOGO.png" alt="Logo">
+    </div>
+    <form class="email-form">
+      <div class="form-group">
+        <label for="email">E-posta:</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="ornek@posta.com" 
+          required
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">Şifre:</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="Şifrenizi giriniz" 
+          required
+        >
+      </div>
+      <div class="forgot-link">
+        <a href="portal_giris.html">Portal Girişi</a>
+      </div>
+      <button type="submit">Giriş Yap</button>
+    </form>
+  </div>
+</body>
+</html>
