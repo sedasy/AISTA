@@ -291,22 +291,22 @@
                 <div class="p-2">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#" data-tab="dashboard">
+                            <a class="nav-link active" href="admin_panel.html">
                                 <i class="fas fa-home"></i> Ana Sayfa
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-tab="requests">
+                            <a class="nav-link" href="requests.html">
                                 <i class="fas fa-list"></i> Talepler
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-tab="users">
+                            <a class="nav-link" href="users.html">
                                 <i class="fas fa-users"></i> Kullanıcılar
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-tab="settings">
+                            <a class="nav-link" href="settings.html">
                                 <i class="fas fa-cog"></i> Ayarlar
                             </a>
                         </li>
@@ -323,10 +323,10 @@
                             <i class="fas fa-user-circle me-2"></i>Admin
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profil</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Ayarlar</a></li>
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profil</a></li>
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>Ayarlar</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap</a></li>
+                            <li><a class="dropdown-item" href="admin_login.html"><i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap</a></li>
                         </ul>
                     </div>
                 </div>
@@ -390,27 +390,49 @@
                                             <th>İşlemler</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#2024-001</td>
-                                            <td>Ahmet Yılmaz</td>
-                                            <td>Arıza</td>
-                                            <td>Bilgisayar Mühendisliği</td>
-                                            <td>2024-03-20</td>
-                                            <td><span class="badge bg-warning">Beklemede</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-info view-request" data-request-id="#2024-001"><i class="fas fa-eye"></i></button>
-                                            </td>
-                                        </tr>
+                                    <tbody id="recentRequestsTable">
+                                        <!-- Table content will be populated by JavaScript -->
                                     </tbody>
                                 </table>
                             </div>
+                            <nav aria-label="Page navigation" class="mt-3">
+                                <ul class="pagination justify-content-center" id="recentRequestsPagination">
+                                    <!-- Pagination will be added by JavaScript -->
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
 
                 <!-- Talepler Tab -->
                 <div class="tab-content" id="requests">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Talep Arama</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="searchCriteria" class="form-label">Arama Kriteri</label>
+                                    <select class="form-select" id="searchCriteria">
+                                        <option value="requestNo">Talep No</option>
+                                        <option value="userName">Kullanıcı Adı</option>
+                                        <option value="requestType">Talep Türü</option>
+                                        <option value="department">Birim</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="searchText" class="form-label">Arama Metni</label>
+                                    <input type="text" class="form-control" id="searchText" placeholder="Arama yapmak için metin giriniz">
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button class="btn btn-primary w-100" id="searchButton">
+                                        <i class="fas fa-search me-2"></i>Ara
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title mb-0">Tüm Talepler</h5>
@@ -687,140 +709,26 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Tab geçişleri için event listener
+            // Tab değişimlerini yönet
             const tabLinks = document.querySelectorAll('.nav-link');
-            const tabContents = document.querySelectorAll('.tab-content');
-
             tabLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // Aktif tab ve içeriği kaldır
-                    document.querySelector('.nav-link.active').classList.remove('active');
-                    document.querySelector('.tab-content.active').classList.remove('active');
-                    
-                    // Yeni tab ve içeriği aktif et
-                    this.classList.add('active');
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
+                    const target = this.getAttribute('href');
+                    if (target !== 'admin_panel.html') {
+                        window.location.href = target;
+                    }
                 });
             });
 
-            // Görüntüle butonları için event listener
-            const viewButtons = document.querySelectorAll('.view-request');
-            viewButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Aktif tab ve içeriği kaldır
-                    document.querySelector('.tab-content.active').classList.remove('active');
-                    
-                    // Talebin bulunduğu satırdan bilgileri al
-                    const row = this.closest('tr');
-                    const requestNo = row.cells[0].textContent;
-                    const userName = row.cells[1].textContent;
-                    const requestType = row.cells[2].textContent;
-                    const department = row.cells[3].textContent;
-                    const date = row.cells[4].textContent;
-                    const status = row.cells[5].innerHTML;
-
-                    // Detay içeriğini güncelle
-                    document.getElementById('detailRequestNo').textContent = requestNo;
-                    document.getElementById('detailRequestType').textContent = requestType;
-                    document.getElementById('detailStatus').innerHTML = status;
-                    document.getElementById('detailDate').textContent = date;
-                    document.getElementById('detailName').textContent = userName;
-                    document.getElementById('detailDepartment').textContent = department;
-                    document.getElementById('detailEmail').textContent = userName.toLowerCase().replace(' ', '.') + '@university.edu';
-                    document.getElementById('detailPhone').textContent = '0555 XXX XX XX';
-                    document.getElementById('detailDescription').textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-
-                    // Detay tabını göster
-                    document.getElementById('request-detail').classList.add('active');
-                });
-            });
-
-            // Geri dön butonu için event listener
-            const backButton = document.querySelector('.back-to-requests');
-            backButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Detay tabını gizle
-                document.getElementById('request-detail').classList.remove('active');
-                
-                // Talepler tabını göster
-                document.getElementById('requests').classList.add('active');
-            });
-
-            // Yönlendirme butonu için event listener
-            const forwardButton = document.getElementById('forwardButton');
-            forwardButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const selectedDepartment = document.getElementById('forwardDepartment').value;
-                const requestNo = document.getElementById('detailRequestNo').textContent;
-                
-                if (!selectedDepartment) {
-                    alert('Lütfen bir birim seçiniz!');
-                    return;
-                }
-
-                // Yönlendirme işlemi onayı
-                if (confirm(`${requestNo} numaralı talebi seçili birime yönlendirmek istediğinize emin misiniz?`)) {
-                    // Yönlendirme başarılı mesajı
-                    alert('Talep başarıyla yönlendirildi!');
-                    
-                    // İşlem geçmişine yönlendirme kaydı ekle
-                    const historyTable = document.getElementById('detailHistory');
-                    const newRow = historyTable.insertRow(0);
-                    
-                    const now = new Date();
-                    const dateStr = now.toLocaleString('tr-TR');
-                    
-                    newRow.innerHTML = `
-                        <td>${dateStr}</td>
-                        <td>Talep Yönlendirildi</td>
-                        <td>${document.getElementById('forwardDepartment').options[document.getElementById('forwardDepartment').selectedIndex].text}'e yönlendirildi</td>
-                        <td>Admin</td>
-                    `;
-
-                    // Durumu güncelle
-                    document.getElementById('detailStatus').innerHTML = '<span class="badge bg-info">İşlemde</span>';
-                    
-                    // Seçili birimi sıfırla
-                    document.getElementById('forwardDepartment').value = '';
-                }
-            });
-
-            // Profil ve Ayarlar dropdown menü işlemleri
-            const dropdownItems = document.querySelectorAll('.dropdown-item[data-tab]');
-            dropdownItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Aktif tab ve içeriği kaldır
-                    document.querySelector('.nav-link.active').classList.remove('active');
-                    document.querySelector('.tab-content.active').classList.remove('active');
-                    
-                    // İlgili tabı aktif et
-                    const tabId = this.getAttribute('data-tab');
-                    document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-
-                    // Dropdown menüyü kapat
-                    const dropdown = this.closest('.dropdown-menu');
-                    const dropdownToggle = document.querySelector('.dropdown-toggle');
-                    dropdown.classList.remove('show');
-                    dropdownToggle.setAttribute('aria-expanded', 'false');
-                });
-            });
-
-            // Çıkış Yap butonu işlemi
-            const logoutButton = document.querySelector('.dropdown-item.text-danger');
-            logoutButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
-                    window.location.href = 'login.html';
+            // Aktif tab'ı belirle
+            const currentPage = window.location.pathname.split('/').pop();
+            tabLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
                 }
             });
         });

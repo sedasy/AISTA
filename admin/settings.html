@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malatya Turgut Özal Üniversitesi - AISTA Ayarlar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #262F59;
+            --secondary-color: #F9BF3B;
+            --light-color: #ffffff;
+            --sidebar-width: 250px;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container-fluid {
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        .row {
+            height: 100%;
+            margin: 0;
+            width: 100%;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            width: var(--sidebar-width);
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: all 0.3s;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .logo-container {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .sidebar .nav-link {
+            color: var(--primary-color);
+            padding: 10px 15px;
+            margin: 3px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-link i {
+            font-size: 1rem;
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        .sidebar .nav-link:hover {
+            color: var(--light-color);
+            background-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        .sidebar .nav-link.active {
+            color: var(--light-color);
+            background-color: var(--primary-color);
+            font-weight: 600;
+        }
+        .main-content {
+            height: 100vh;
+            margin-left: var(--sidebar-width);
+            padding: 15px;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+            width: calc(100% - var(--sidebar-width));
+        }
+        .card {
+            margin-bottom: 15px;
+            border: none;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            width: 100%;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 20px;
+        }
+        .btn-primary:hover {
+            background-color: #1a2240;
+            border-color: #1a2240;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 20px;
+        }
+        .btn-secondary:hover {
+            background-color: #e6b02e;
+            border-color: #e6b02e;
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+        .btn i {
+            font-size: 1rem;
+            margin-right: 5px;
+        }
+        .btn-sm i {
+            font-size: 0.875rem;
+        }
+        .badge {
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .badge.bg-warning {
+            background-color: var(--secondary-color) !important;
+            color: var(--primary-color);
+        }
+        .badge.bg-info {
+            background-color: var(--primary-color) !important;
+            color: var(--light-color);
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-toggle {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .dropdown-toggle:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-color: var(--primary-color);
+        }
+        .dropdown-toggle::after {
+            margin-left: 8px;
+        }
+        .dropdown-toggle i {
+            font-size: 1rem;
+        }
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 8px;
+            min-width: 200px;
+            margin-top: 8px;
+        }
+        .dropdown-item {
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .dropdown-item:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+        }
+        .dropdown-divider {
+            margin: 8px 0;
+            opacity: 0.1;
+        }
+        .dropdown-item i {
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+        }
+        .form-control {
+            padding: 8px 12px;
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(249, 191, 59, 0.25);
+        }
+        .table {
+            margin-bottom: 0;
+        }
+        .table th, .table td {
+            padding: 8px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+        .card-header {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 15px;
+            border-radius: 12px 12px 0 0;
+        }
+        .settings-section {
+            margin-bottom: 30px;
+        }
+        .settings-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .form-label {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        .form-text {
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+        .settings-card {
+            background-color: var(--light-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .settings-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+        }
+        .settings-card p {
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        .settings-card .btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="../assets/images/DAİRESEL LOGO.PNG" alt="Üniversite Logosu">
+                    </div>
+                    <h5 class="mt-2 mb-0">Malatya Turgut Özal Üniversitesi</h5>
+                    <p class="text-muted small">AISTA Yönetim Sistemi</p>
+                </div>
+                <div class="p-2">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin_panel.html">
+                                <i class="fas fa-home"></i> Ana Sayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="requests.html">
+                                <i class="fas fa-list"></i> Talepler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.html">
+                                <i class="fas fa-users"></i> Kullanıcılar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="settings.html">
+                                <i class="fas fa-cog"></i> Ayarlar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="mb-0" style="font-size: 1.5rem;">Ayarlar</h2>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-2"></i>Admin
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profil</a></li>
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>Ayarlar</a></li>
+                            <li><hr class="dropdown-div-divider"></li>
+                            <li><a class="dropdown-item" href="admin_login.html"><i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Genel Ayarlar</h3>
+                    <div class="settings-card">
+                        <h4>Sistem Bilgileri</h4>
+                        <p>Sistem versiyonu ve genel ayarlarınızı buradan yönetebilirsiniz.</p>
+                        <form>
+                            <div class="mb-3">
+                                <label for="systemName" class="form-label">Sistem Adı</label>
+                                <input type="text" class="form-control" id="systemName" value="AISTA Yönetim Sistemi">
+                            </div>
+                            <div class="mb-3">
+                                <label for="systemVersion" class="form-label">Sistem Versiyonu</label>
+                                <input type="text" class="form-control" id="systemVersion" value="v1.0.0" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="maintenanceMode" class="form-label">Bakım Modu</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                                    <label class="form-check-label" for="maintenanceMode">Bakım modunu aktifleştir</label>
+                                </div>
+                                <div class="form-text">Bakım modu aktif olduğunda sistem normal kullanıcılara kapalı olacaktır.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>E-posta Ayarları</h3>
+                    <div class="settings-card">
+                        <h4>SMTP Ayarları</h4>
+                        <p>Sistem e-posta gönderim ayarlarını buradan yapılandırabilirsiniz.</p>
+                        <form>
+                            <div class="mb-3">
+                                <label for="smtpHost" class="form-label">SMTP Sunucusu</label>
+                                <input type="text" class="form-control" id="smtpHost" value="smtp.mtu.edu.tr">
+                            </div>
+                            <div class="mb-3">
+                                <label for="smtpPort" class="form-label">SMTP Port</label>
+                                <input type="number" class="form-control" id="smtpPort" value="587">
+                            </div>
+                            <div class="mb-3">
+                                <label for="smtpUsername" class="form-label">SMTP Kullanıcı Adı</label>
+                                <input type="text" class="form-control" id="smtpUsername" value="noreply@mtu.edu.tr">
+                            </div>
+                            <div class="mb-3">
+                                <label for="smtpPassword" class="form-label">SMTP Şifresi</label>
+                                <input type="password" class="form-control" id="smtpPassword" value="********">
+                            </div>
+                            <div class="mb-3">
+                                <label for="smtpEncryption" class="form-label">Şifreleme</label>
+                                <select class="form-select" id="smtpEncryption">
+                                    <option value="tls">TLS</option>
+                                    <option value="ssl">SSL</option>
+                                    <option value="none">Şifreleme Yok</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Güvenlik Ayarları</h3>
+                    <div class="settings-card">
+                        <h4>Oturum Ayarları</h4>
+                        <p>Kullanıcı oturum güvenliği ile ilgili ayarları buradan yapılandırabilirsiniz.</p>
+                        <form>
+                            <div class="mb-3">
+                                <label for="sessionTimeout" class="form-label">Oturum Zaman Aşımı (dakika)</label>
+                                <input type="number" class="form-control" id="sessionTimeout" value="30">
+                            </div>
+                            <div class="mb-3">
+                                <label for="maxLoginAttempts" class="form-label">Maksimum Giriş Denemesi</label>
+                                <input type="number" class="form-control" id="maxLoginAttempts" value="5">
+                            </div>
+                            <div class="mb-3">
+                                <label for="passwordExpiry" class="form-label">Şifre Geçerlilik Süresi (gün)</label>
+                                <input type="number" class="form-control" id="passwordExpiry" value="90">
+                            </div>
+                            <div class="mb-3">
+                                <label for="twoFactorAuth" class="form-label">İki Faktörlü Doğrulama</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                                    <label class="form-check-label" for="twoFactorAuth">İki faktörlü doğrulamayı aktifleştir</label>
+                                </div>
+                                <div class="form-text">İki faktörlü doğrulama aktif olduğunda kullanıcılar giriş yaparken ek doğrulama adımından geçecektir.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Yedekleme Ayarları</h3>
+                    <div class="settings-card">
+                        <h4>Otomatik Yedekleme</h4>
+                        <p>Sistem verilerinin otomatik yedeklenmesi ile ilgili ayarları buradan yapılandırabilirsiniz.</p>
+                        <form>
+                            <div class="mb-3">
+                                <label for="backupFrequency" class="form-label">Yedekleme Sıklığı</label>
+                                <select class="form-select" id="backupFrequency">
+                                    <option value="daily">Günlük</option>
+                                    <option value="weekly">Haftalık</option>
+                                    <option value="monthly">Aylık</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="backupTime" class="form-label">Yedekleme Saati</label>
+                                <input type="time" class="form-control" id="backupTime" value="02:00">
+                            </div>
+                            <div class="mb-3">
+                                <label for="backupRetention" class="form-label">Yedek Saklama Süresi (gün)</label>
+                                <input type="number" class="form-control" id="backupRetention" value="30">
+                            </div>
+                            <div class="mb-3">
+                                <label for="backupLocation" class="form-label">Yedek Konumu</label>
+                                <input type="text" class="form-control" id="backupLocation" value="/backups">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

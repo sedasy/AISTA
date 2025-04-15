@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malatya Turgut Özal Üniversitesi - AISTA Kullanıcı Düzenleme</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #262F59;
+            --secondary-color: #F9BF3B;
+            --light-color: #ffffff;
+            --sidebar-width: 250px;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container-fluid {
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        .row {
+            height: 100%;
+            margin: 0;
+            width: 100%;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            width: var(--sidebar-width);
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: all 0.3s;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .logo-container {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .sidebar .nav-link {
+            color: var(--primary-color);
+            padding: 10px 15px;
+            margin: 3px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-link i {
+            font-size: 1rem;
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        .sidebar .nav-link:hover {
+            color: var(--light-color);
+            background-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        .sidebar .nav-link.active {
+            color: var(--light-color);
+            background-color: var(--primary-color);
+            font-weight: 600;
+        }
+        .main-content {
+            height: 100vh;
+            margin-left: var(--sidebar-width);
+            padding: 15px;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+            width: calc(100% - var(--sidebar-width));
+        }
+        .card {
+            margin-bottom: 15px;
+            border: none;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            width: 100%;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 20px;
+        }
+        .btn-primary:hover {
+            background-color: #1a2240;
+            border-color: #1a2240;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 20px;
+        }
+        .btn-secondary:hover {
+            background-color: #e6b02e;
+            border-color: #e6b02e;
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+        .btn i {
+            font-size: 1rem;
+            margin-right: 5px;
+        }
+        .btn-sm i {
+            font-size: 0.875rem;
+        }
+        .badge {
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .badge.bg-warning {
+            background-color: var(--secondary-color) !important;
+            color: var(--primary-color);
+        }
+        .badge.bg-info {
+            background-color: var(--primary-color) !important;
+            color: var(--light-color);
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-toggle {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .dropdown-toggle:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-color: var(--primary-color);
+        }
+        .dropdown-toggle::after {
+            margin-left: 8px;
+        }
+        .dropdown-toggle i {
+            font-size: 1rem;
+        }
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 8px;
+            min-width: 200px;
+            margin-top: 8px;
+        }
+        .dropdown-item {
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .dropdown-item:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+        }
+        .dropdown-divider {
+            margin: 8px 0;
+            opacity: 0.1;
+        }
+        .dropdown-item i {
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+        }
+        .form-control {
+            padding: 8px 12px;
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(249, 191, 59, 0.25);
+        }
+        .table {
+            margin-bottom: 0;
+        }
+        .table th, .table td {
+            padding: 8px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+        .card-header {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 15px;
+            border-radius: 12px 12px 0 0;
+        }
+        .user-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .user-avatar:hover {
+            opacity: 0.8;
+        }
+        .avatar-upload {
+            position: relative;
+            display: inline-block;
+        }
+        .avatar-upload input[type="file"] {
+            display: none;
+        }
+        .avatar-upload .upload-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .avatar-upload:hover .upload-icon {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="../assets/images/DAİRESEL LOGO.PNG" alt="Üniversite Logosu">
+                    </div>
+                    <h5 class="mt-2 mb-0">Malatya Turgut Özal Üniversitesi</h5>
+                    <p class="text-muted small">AISTA Yönetim Sistemi</p>
+                </div>
+                <div class="p-2">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin_panel.html">
+                                <i class="fas fa-home"></i> Ana Sayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="requests.html">
+                                <i class="fas fa-list"></i> Talepler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="users.html">
+                                <i class="fas fa-users"></i> Kullanıcılar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="settings.html">
+                                <i class="fas fa-cog"></i> Ayarlar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="mb-0" style="font-size: 1.5rem;">Kullanıcı Düzenleme</h2>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-2"></i>Admin
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profil</a></li>
+                            <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>Ayarlar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="admin_login.html"><i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Kullanıcı Bilgileri</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="editUserForm">
+                            <div class="row">
+                                <div class="col-md-3 text-center">
+                                    <div class="avatar-upload">
+                                        <img src="../assets/images/default-avatar.png" alt="Kullanıcı Avatarı" class="user-avatar" id="userAvatar">
+                                        <label class="upload-icon" for="avatarInput">
+                                            <i class="fas fa-camera"></i>
+                                        </label>
+                                        <input type="file" id="avatarInput" accept="image/*">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="username" class="form-label">Kullanıcı Adı</label>
+                                            <input type="text" class="form-control" id="username" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="fullName" class="form-label">Ad Soyad</label>
+                                            <input type="text" class="form-control" id="fullName" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label">E-posta</label>
+                                            <input type="email" class="form-control" id="email" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="phone" class="form-label">Telefon</label>
+                                            <input type="tel" class="form-control" id="phone">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="tc" class="form-label">TC Kimlik No</label>
+                                            <input type="text" class="form-control" id="tc" maxlength="11" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="department" class="form-label">Birim</label>
+                                            <select class="form-select" id="department" required>
+                                                <option value="">Birim Seçin</option>
+                                                <option value="1">Bilgisayar Mühendisliği</option>
+                                                <option value="2">Elektrik-Elektronik Mühendisliği</option>
+                                                <option value="3">Makine Mühendisliği</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="position" class="form-label">Pozisyon</label>
+                                            <select class="form-select" id="position" required>
+                                                <option value="">Pozisyon Seçin</option>
+                                                <option value="1">Öğretim Üyesi</option>
+                                                <option value="2">Araştırma Görevlisi</option>
+                                                <option value="3">Öğretim Görevlisi</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="role" class="form-label">Rol</label>
+                                            <select class="form-select" id="role" required>
+                                                <option value="">Rol Seçin</option>
+                                                <option value="1">Admin</option>
+                                                <option value="2">Kullanıcı</option>
+                                                <option value="3">Moderatör</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="status" class="form-label">Durum</label>
+                                            <select class="form-select" id="status" required>
+                                                <option value="1">Aktif</option>
+                                                <option value="0">Pasif</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h6 class="fw-bold">İzinler</h6>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="permissionRequests">
+                                                    <label class="form-check-label" for="permissionRequests">
+                                                        Talepleri Görüntüleme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="permissionUsers">
+                                                    <label class="form-check-label" for="permissionUsers">
+                                                        Kullanıcıları Yönetme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="permissionSettings">
+                                                    <label class="form-check-label" for="permissionSettings">
+                                                        Ayarları Düzenleme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <button type="button" class="btn btn-secondary" id="cancelButton">
+                                            <i class="fas fa-times me-2"></i>İptal
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-2"></i>Kaydet
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // URL'den kullanıcı ID'sini al
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('id');
+
+            // Kullanıcı detaylarını yükle
+            if (userId) {
+                // Burada API'den kullanıcı detaylarını alabilirsiniz
+                // Şimdilik örnek veri kullanıyoruz
+                const userDetails = {
+                    id: userId,
+                    username: 'ahmetyilmaz',
+                    fullName: 'Ahmet Yılmaz',
+                    email: 'ahmet.yilmaz@mtu.edu.tr',
+                    phone: '0555 XXX XX XX',
+                    tc: '12345678901',
+                    department: '1',
+                    position: '1',
+                    role: '2',
+                    status: '1',
+                    permissions: {
+                        requests: true,
+                        users: false,
+                        settings: false
+                    }
+                };
+
+                // Form alanlarını doldur
+                document.getElementById('username').value = userDetails.username;
+                document.getElementById('fullName').value = userDetails.fullName;
+                document.getElementById('email').value = userDetails.email;
+                document.getElementById('phone').value = userDetails.phone;
+                document.getElementById('tc').value = userDetails.tc;
+                document.getElementById('department').value = userDetails.department;
+                document.getElementById('position').value = userDetails.position;
+                document.getElementById('role').value = userDetails.role;
+                document.getElementById('status').value = userDetails.status;
+
+                // İzinleri ayarla
+                document.getElementById('permissionRequests').checked = userDetails.permissions.requests;
+                document.getElementById('permissionUsers').checked = userDetails.permissions.users;
+                document.getElementById('permissionSettings').checked = userDetails.permissions.settings;
+            }
+
+            // Avatar yükleme işlemi
+            const avatarInput = document.getElementById('avatarInput');
+            const userAvatar = document.getElementById('userAvatar');
+
+            avatarInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        userAvatar.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Form gönderme işlemi
+            const editUserForm = document.getElementById('editUserForm');
+            editUserForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Form verilerini topla
+                const formData = {
+                    id: userId,
+                    username: document.getElementById('username').value,
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    tc: document.getElementById('tc').value,
+                    department: document.getElementById('department').value,
+                    position: document.getElementById('position').value,
+                    role: document.getElementById('role').value,
+                    status: document.getElementById('status').value,
+                    permissions: {
+                        requests: document.getElementById('permissionRequests').checked,
+                        users: document.getElementById('permissionUsers').checked,
+                        settings: document.getElementById('permissionSettings').checked
+                    }
+                };
+
+                // Burada API'ye form verilerini gönderebilirsiniz
+                console.log('Form verileri:', formData);
+                
+                // Başarılı kayıt mesajı
+                alert('Kullanıcı bilgileri başarıyla güncellendi!');
+                window.location.href = `user_detail.html?id=${userId}`;
+            });
+
+            // İptal butonu
+            const cancelButton = document.getElementById('cancelButton');
+            cancelButton.addEventListener('click', function() {
+                window.location.href = `user_detail.html?id=${userId}`;
+            });
+        });
+    </script>
+</body>
+</html> 
