@@ -262,27 +262,27 @@
                 <div class="p-2">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#" data-tab="dashboard">
+                            <a class="nav-link active" href="dashboard.html">
                                 <i class="fas fa-home me-2"></i> Ana Sayfa
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-tab="new-request">
+                            <a class="nav-link" href="new_request.html">
                                 <i class="fas fa-plus-circle me-2"></i> Yeni Talep
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-tab="my-requests">
+                            <a class="nav-link" href="my_requests.html">
                                 <i class="fas fa-list me-2"></i> Taleplerim
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-tab="notifications">
+                            <a class="nav-link" href="notifications.html">
                                 <i class="fas fa-bell me-2"></i> Bildirimler
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-tab="profile">
+                            <a class="nav-link" href="profile.html">
                                 <i class="fas fa-user me-2"></i> Profilim
                             </a>
                         </li>
@@ -570,14 +570,11 @@
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // Aktif tab ve içeriği kaldır
-                    document.querySelector('.nav-link.active').classList.remove('active');
-                    document.querySelector('.tab-content.active').classList.remove('active');
-                    
-                    // Yeni tab ve içeriği aktif et
-                    this.classList.add('active');
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
+                    // Yönlendirme işlemi
+                    const href = this.getAttribute('href');
+                    if (href) {
+                        window.location.href = href;
+                    }
                 });
             });
 
@@ -586,14 +583,7 @@
             newRequestButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // Aktif tab ve içeriği kaldır
-                    document.querySelector('.nav-link.active').classList.remove('active');
-                    document.querySelector('.tab-content.active').classList.remove('active');
-                    
-                    // Yeni talep tabını aktif et
-                    document.querySelector('[data-tab="new-request"]').classList.add('active');
-                    document.getElementById('new-request').classList.add('active');
+                    window.location.href = 'new_request.html';
                 });
             });
 
@@ -603,20 +593,13 @@
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // Aktif tab ve içeriği kaldır
-                    document.querySelector('.nav-link.active').classList.remove('active');
-                    document.querySelector('.tab-content.active').classList.remove('active');
-                    
-                    // İlgili tabı aktif et
+                    // Yönlendirme işlemi
                     const tabId = this.getAttribute('data-tab');
-                    document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-
-                    // Dropdown menüyü kapat
-                    const dropdown = this.closest('.dropdown-menu');
-                    const dropdownToggle = document.querySelector('.dropdown-toggle');
-                    dropdown.classList.remove('show');
-                    dropdownToggle.setAttribute('aria-expanded', 'false');
+                    if (tabId === 'profile') {
+                        window.location.href = 'profile.html';
+                    } else if (tabId === 'settings') {
+                        window.location.href = 'settings.html';
+                    }
                 });
             });
 
@@ -625,8 +608,7 @@
             logoutButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
-                    // Çıkış işlemi burada yapılacak
-                    window.location.href = 'login.html'; // Örnek yönlendirme
+                    window.location.href = 'login.html';
                 }
             });
         });

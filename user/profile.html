@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Üniversite Talep Sistemi - Profilim</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #262F59;
+            --secondary-color: #F9BF3B;
+            --light-color: #ffffff;
+            --sidebar-width: 250px;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container-fluid {
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        .row {
+            height: 100%;
+            margin: 0;
+            width: 100%;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            width: var(--sidebar-width);
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: all 0.3s;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .logo-container {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        .sidebar .nav-link {
+            color: var(--primary-color);
+            padding: 10px 15px;
+            margin: 3px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .sidebar .nav-link:hover {
+            color: var(--light-color);
+            background-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        .sidebar .nav-link.active {
+            color: var(--light-color);
+            background-color: var(--primary-color);
+            font-weight: 600;
+        }
+        .main-content {
+            height: 100vh;
+            margin-left: var(--sidebar-width);
+            padding: 15px;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+            width: calc(100% - var(--sidebar-width));
+        }
+        .card {
+            margin-bottom: 15px;
+            border: none;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            width: 100%;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 20px;
+        }
+        .btn-primary:hover {
+            background-color: #1a2240;
+            border-color: #1a2240;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 20px;
+        }
+        .btn-secondary:hover {
+            background-color: #e6b02e;
+            border-color: #e6b02e;
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-toggle {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .dropdown-toggle:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border-color: var(--primary-color);
+        }
+        .dropdown-toggle::after {
+            margin-left: 8px;
+        }
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 8px;
+            min-width: 200px;
+            margin-top: 8px;
+        }
+        .dropdown-item {
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .dropdown-item:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+        }
+        .dropdown-divider {
+            margin: 8px 0;
+            opacity: 0.1;
+        }
+        .form-control {
+            padding: 8px 12px;
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(249, 191, 59, 0.25);
+        }
+        .profile-section {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-avatar .avatar-edit {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.5);
+            padding: 8px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .profile-avatar:hover .avatar-edit {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="../assets/images/DAİRESEL LOGO.PNG" alt="Üniversite Logosu">
+                    </div>
+                    <h5 class="mt-2 mb-0">Malatya Turgut Özal Üniversitesi</h5>
+                    <p class="text-muted small">AISTA Yönetim Sistemi</p>
+                </div>
+                <div class="p-2">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <i class="fas fa-home me-2"></i> Ana Sayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="new_request.html">
+                                <i class="fas fa-plus-circle me-2"></i> Yeni Talep
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="my_requests.html">
+                                <i class="fas fa-list me-2"></i> Taleplerim
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="notifications.html">
+                                <i class="fas fa-bell me-2"></i> Bildirimler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="profile.html">
+                                <i class="fas fa-user me-2"></i> Profilim
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="mb-0" style="font-size: 1.5rem;">Hoş Geldiniz, Ahmet Yılmaz</h2>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Ahmet Yılmaz</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="profile.html">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profilim</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="settings.html">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Ayarlar</span>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="login.html">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Çıkış Yap</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Profil Bilgileri -->
+                <div class="card profile-section">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Profil Bilgileri</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <div class="profile-avatar">
+                                <img src="../assets/images/default-avatar.png" alt="Profil Fotoğrafı">
+                                <div class="avatar-edit">
+                                    <i class="fas fa-camera"></i> Fotoğraf Değiştir
+                                </div>
+                            </div>
+                            <input type="file" id="avatarInput" style="display: none;">
+                        </div>
+                        <form>
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Ad Soyad</label>
+                                <input type="text" class="form-control" id="fullName" value="Ahmet Yılmaz">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-posta</label>
+                                <input type="email" class="form-control" id="email" value="ahmet.yilmaz@university.edu">
+                            </div>
+                            <div class="mb-3">
+                                <label for="department" class="form-label">Birim</label>
+                                <input type="text" class="form-control" id="department" value="Bilgisayar Mühendisliği">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Telefon</label>
+                                <input type="tel" class="form-control" id="phone" value="+90 555 123 4567">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Şifre</label>
+                                <input type="password" class="form-control" id="password" placeholder="Yeni şifre giriniz">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Şifre Tekrar</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Şifreyi tekrar giriniz">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Çıkış Yap butonu işlemi
+            const logoutButton = document.querySelector('.dropdown-item.text-danger');
+            logoutButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // Profil fotoğrafı değiştirme
+            const avatarEdit = document.querySelector('.avatar-edit');
+            const avatarInput = document.getElementById('avatarInput');
+            
+            avatarEdit.addEventListener('click', function() {
+                avatarInput.click();
+            });
+
+            avatarInput.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.querySelector('.profile-avatar img').src = e.target.result;
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
