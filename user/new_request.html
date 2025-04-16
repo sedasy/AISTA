@@ -268,6 +268,56 @@
                     <div class="card-body">
                         <form>
                             <div class="mb-3">
+                                <label for="requestOwner" class="form-label">Talep Sahibi</label>
+                                <input type="text" class="form-control" id="requestOwner" value="Ahmet Yılmaz" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="priority" class="form-label">Önem Derecesi</label>
+                                <select class="form-select" id="priority" required>
+                                    <option value="">Seçiniz</option>
+                                    <option value="low">Düşük</option>
+                                    <option value="medium">Orta</option>
+                                    <option value="high">Yüksek</option>
+                                    <option value="urgent">Acil</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactNumber" class="form-label">İletişim Numarası</label>
+                                <input type="tel" class="form-control" id="contactNumber" placeholder="+90 555 123 4567" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="requestSubject" class="form-label">Talep Konusu</label>
+                                <input type="text" class="form-control" id="requestSubject" placeholder="Talep konusunu giriniz" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="targetDepartment" class="form-label">Gönderilecek Birim</label>
+                                <select class="form-select" id="targetDepartment" required>
+                                    <option value="">Seçiniz</option>
+                                    <option value="bilgisayar">Bilgisayar Mühendisliği</option>
+                                    <option value="elektrik">Elektrik-Elektronik Mühendisliği</option>
+                                    <option value="makine">Makine Mühendisliği</option>
+                                    <option value="insaat">İnşaat Mühendisliği</option>
+                                    <option value="endustri">Endüstri Mühendisliği</option>
+                                    <option value="mimarlik">Mimarlık</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="requesterDepartment" class="form-label">Çalıştığınız Birim</label>
+                                <select class="form-select" id="requesterDepartment" required>
+                                    <option value="">Seçiniz</option>
+                                    <option value="bilgisayar" selected>Bilgisayar Mühendisliği</option>
+                                    <option value="elektrik">Elektrik-Elektronik Mühendisliği</option>
+                                    <option value="makine">Makine Mühendisliği</option>
+                                    <option value="insaat">İnşaat Mühendisliği</option>
+                                    <option value="endustri">Endüstri Mühendisliği</option>
+                                    <option value="mimarlik">Mimarlık</option>
+                                    <option value="fizik">Fizik</option>
+                                    <option value="kimya">Kimya</option>
+                                    <option value="matematik">Matematik</option>
+                                    <option value="biyoloji">Biyoloji</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label for="requestType" class="form-label">Talep Türü</label>
                                 <select class="form-select" id="requestType" required>
                                     <option value="">Seçiniz</option>
